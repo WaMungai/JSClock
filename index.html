@@ -3,7 +3,7 @@
     <head>
         <meta charset="=UTF-8">
         <title> JavaSript + CSS Clock</title>
-        <link rel="icon"  href="https://fav.farm/🔥" />
+        <link rel="icon"  href="https://fav.farm/✅" />
     </head>
     <body>
         <div class="clock">
@@ -15,7 +15,7 @@
         </div>
         <style>
             html{
-                background-color: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+                background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
                 background-size: cover;
                 font-family: 'helvetica neue';
                 text-align: center;
@@ -41,7 +41,7 @@
                 0 0 0 4px rgba(0,0,0,0.1),
                 inset 0 0 0 3px #EFEFEF,
                 inset 0 0 10px black,
-                0 0 0 10px rgba(0,0,0,0.2)
+                0 0 10px rgba(0,0,0,0.2)
             }
             .clock-face{
                 position: relative;
@@ -55,10 +55,33 @@
                 background: black;
                 position: absolute;
                 top:50%;
+                transform-origin: 100%;
+                transform: rotate(90deg);
+                transition: all 0.05s;
+                transition-timing-function:cubic-beizer(0.1, 2.7,0.58,1)
             }
         </style>
         <script>
-            
+            const secondHand = document.querySelector('.second-hand');
+            const minsHand = document.querySelector('.min-hand');
+            const hourHand = document.querySelector('.hour-hand');
+
+            function setDate(){
+                const now = new Date();
+                const seconds = now.getSeconds();
+                const secondsDegrees =((seconds / 60) * 360) + 90;
+                secondHand.style.transform = `rotate(${secondsDegrees}deg)`
+
+                const mins = now.getMinutes();
+                const minsDegrees =((mins / 60) * 360) + ((seconds/60) *6) + 90;
+                minsHand.style.transform = `rotate(${minsDegrees}deg)`
+
+                const hour = now.getHours();
+                const hoursDegrees =((hour / 12) * 360) +((mins/60) * 30) + 90;
+                secondHand.style.transform = `rotate(${hourDegrees}deg)`
+            }
+            setInterval(setDate, 1000);
+            setDate()
         </script>
     </body>
 </html>
